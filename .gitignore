@@ -1,0 +1,8 @@
+*.aux
+*.nav
+*.gz
+*.toc
+*.log
+*.out
+*.smn
+*.key

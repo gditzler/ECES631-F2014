@@ -1,0 +1,6 @@
+#!/usr/bin/env bash 
+
+for f in `find *.eps`; do
+  echo "$f"
+  epstopdf $f
+done

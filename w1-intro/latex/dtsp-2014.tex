@@ -250,7 +250,12 @@
   \end{block}
   
   \begin{exampleblock}{Questions}
-    
+    Is an accumulator system given by  
+    \begin{align}
+      y[n] = \sum_{k=-\infty}^{n} x[k]
+      \nonumber
+    \end{align}
+    a linear system?
   \end{exampleblock}
 \end{frame}
 
@@ -329,6 +334,29 @@
     \includegraphics[width=.45\textwidth]{conv_03.pdf}
   \end{center}
 \end{frame}
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Properties of LTI Systems}\small
+
+  \begin{exampleblock}{Some Properties}
+  \begin{itemize}
+    \item An LTI system can be completely characterized by its impulse response.  
+    \item Convolution is commutative, that is, $x[n] \star h[n] = h[n] \star x[n]$
+      \begin{align}
+        y[n] = \sum_{m=\infty}^{-\infty}{x[n-m]h[m]} = \sum_{m=-\infty}^{\infty}{h[m]x[n-m]} = h[n] \star x[n]
+        \nonumber
+      \end{align}
+    \item For an LTI system with $h[n] = h_1[n] + h_2[n]$, we have
+      \begin{align}
+        x[n] \star \left( h_1[n] + h_2[n] \right) = h_1[n] \star x[n] + h_2[n] \star x[n]
+        \nonumber
+      \end{align}
+  \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+
+
 
 
 %--------------------------------------------------------------------------------------------
@@ -418,6 +446,179 @@
   }
 \end{frame}
 
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{LTI Systems}\small
+  
+  \begin{columns}
+  \column{.45\textwidth}
+  \begin{block}{Ideal Delay}
+    \begin{align}
+    h[n] = \delta[n-n_0]
+    \nonumber
+    \end{align}
+  \end{block}
+  \begin{exampleblock}{Moving Average}
+    \begin{align}
+    h[n] &= \frac{1}{M_1+M_2+1}\sum_{k=-M_1}^{M_2}\delta[n-k]
+    \nonumber \\
+    &=
+      \left\{
+        \begin{array}{l l}
+          \frac{1}{M_1+M_2+1} & -M_1 \leq n \leq M_2 \\
+          0 & \textrm{otherwise}
+        \end{array}
+      \right.
+    \nonumber
+    \end{align}
+  \end{exampleblock}
+  \begin{block}{Forward Difference}
+    \begin{align}
+    h[n] = \delta[n+1] - \delta[n]
+    \nonumber
+    \end{align}
+  \end{block}
+
+  \column{.45\textwidth}
+  \begin{exampleblock}{Backward Difference}
+    \begin{align}
+    h[n] = \delta[n] - \delta[n-1]
+    \nonumber
+    \end{align}
+  \end{exampleblock}
+  \begin{block}{Accumulator}
+    \begin{align}
+    h[n] &= \sum_{k=-M_1}^{M_2}\delta[k]
+    \nonumber \\
+    &=
+      \left\{
+        \begin{array}{l l}
+          1 & n \geq 0 \\
+          0 & n < 0
+        \end{array}
+      \right. = u[n]
+    \nonumber
+    \end{align}
+  \end{block}
+  \begin{exampleblock}{$\star$Constant Coefficient Linear Difference$\star$}
+    \begin{align}
+    \sum_{k=0}^{M} a_k y[n-k] = \sum_{m=0}^{M} b_m x[n-m]
+    \nonumber
+    \end{align}
+  \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Frequency Domain Representations of Discrete Signals}\small
+  \begin{center}
+    \includegraphics[height=\textheight]{fourier.pdf}
+  \end{center}
+\end{frame}
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Frequency Domain Representations of Discrete Signals}\small
+  \begin{block}{LTI Systems}
+    \begin{itemize}
+      \item LTI systems can be written as a weighted sum of delayed impulse response coefficients. Until this point, we have only considered time domain representations of signals.   
+      \item Recall a sinusoid can be written as a complex exponential functions, and as it turns out, complex exponential sequences are eigenfunctions of a LTI system. 
+    \end{itemize}
+  \end{block}
+  
+  \begin{exampleblock}{Eigenfunctions for LTI Systems}
+    To demonstrate the eigenfunction property of LTI systems, let $x[n] = \e^{j\omega n}$, then 
+    \begin{align}
+      y[n] = \sum_{k=-\infty}^{\infty}h[n-k] \e^{-j\omega(n-k)} = \e^{j\omega} \left(\sum_{k=-\infty}^{\infty}h[n-k] \e^{-jk}\right) \nonumber
+    \end{align}
+    If $H(\e^{j\omega}) = \sum_{k=-\infty}^{\infty}{h[k]\e^{-j\omega k}}$, then 
+    \begin{align}
+      y[n]  = H(\e^{j\omega})\e^{j\omega n} \nonumber
+    \end{align}
+    Thus, $\e^{j\omega n}$ is an eigenfunction with a corresponding eigenvalue $H(\e^{j\omega})$. Furthermore, for convenience, we may write $H(\e^{j\omega})$ as $|H(\e^{j\omega})| \e^{j\angle H(\e^{j\omega})}$.
+  \end{exampleblock}
+\end{frame}
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Frequency Domain Example}
+   
+   \begin{block}{Question}
+   Find the frequency response of a moving averaging system  given by: 
+   \begin{align}
+     h[n] = \left\{
+       \begin{array}{l l}
+         \frac{1}{M_1+M_2+1} & -M_1 \leq n \leq M_2 \\
+         0 & \textrm{otherwise}
+       \end{array}
+     \right. \nonumber
+   \end{align}
+   \end{block}
+\end{frame}
+
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Frequency Domain Example}\small
+
+  Therefore, the frequency response is given by 
+  \begin{align}
+    H(\e^{j\omega}) &= \frac{1}{M_1+M_2+1} \sum_{n=-M_1}^{M_2} \e^{-j\omega} \nonumber \\
+    &=\frac{1}{M_1+M_2+1} \frac{\e^{j\omega M_1} - \e^{-j\omega (M_2 +1)}}{1 - \e^{-j\omega}} \nonumber \\
+    &=\frac{1}{M_1+M_2+1} \frac{\e^{j\omega (M_1+M_2+1)/2} - \e^{-j\omega (M_1+M_2+1)/2}}{1 - \e^{-j\omega}} \e^{-j\omega (M_2-M_1+1)/2}\nonumber \\
+    &=\frac{1}{M_1+M_2+1} \frac{\e^{j\omega (M_1+M_2+1)/2} - \e^{-j\omega (M_1+M_2+1)/2}}{ \e^{j\omega/2} -\e^{-j\omega/2} } \e^{-j\omega (M_2-M_1)/2}\nonumber \\
+    &=\frac{1}{M_1+M_2+1} \frac{ \sin\left( \omega (M_1+M_2+1)/2 \right) }{ \sin(\omega/2) } \e^{-j\omega (M_2-M_1)/2}\nonumber 
+  \end{align}   
+   
+\end{frame}
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Frequency Domain Example}\small
+
+  \begin{center}
+     \includegraphics[width=.45\textwidth]{frmas_f.pdf}\hspace{1em}
+     \includegraphics[width=.45\textwidth]{frmas_a.pdf}
+  \end{center}
+   
+\end{frame}
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Historical Note: The  1889 World's Fair in Paris, France}\small
+  \begin{center}
+     \includegraphics[width=.9\textwidth]{eiffel.jpg}\hspace{1em}
+  \end{center}
+\end{frame}
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{And Who Made the List?}\small
+  \begin{center}
+     \includegraphics[width=.9\textwidth]{F1.png}\hspace{1em} \\
+     \includegraphics[width=.9\textwidth]{F2.png}\hspace{1em} \\
+     \includegraphics[height=.4\textheight]{f3.png}\hspace{1em} 
+     \includegraphics[height=.4\textheight]{f4.png}\hspace{1em} 
+  \end{center}
+\end{frame}
+
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{The Discrete Fourier Transform}
+   
+   \begin{block}{Discrete Fourier Transform (Analysis)}
+   The frequency spectrum for some signal $x[n]$ can be represented by: 
+   \begin{align}
+     X(\e^{j\omega}) = \sum_{n=-\infty}^{\infty} x[n] \e^{-j\omega n}
+     \nonumber
+   \end{align}
+   \end{block}
+   
+   \begin{exampleblock}{Inverse Discrete Fourier Transform (Synthesis)}
+   Any discrete sequence can be represented by: 
+   \begin{align}
+     x[n] = \frac{1}{2\pi} \int\limits_{-\pi}^{\pi} X(\e^{j\omega}) \e^{j\omega n} \d\omega
+     \nonumber
+   \end{align}
+   \end{exampleblock}
+\end{frame}
+
+
 
 %--------------------------------------------------------------------------------------------
 \begin{frame}\frametitle{Sampling}\small
@@ -487,12 +688,6 @@
 \end{frame}
 
 
-
-
-
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{Linear-Time Invariance}\small
-\end{frame}
 
 
 %--------------------------------------------------------------------------------------------

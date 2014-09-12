@@ -360,7 +360,7 @@
 
 
 %--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{Equivelence of LTI Systems}\small
+\begin{frame}\frametitle{Equivalence of LTI Systems}\small
   \begin{center}
     \includegraphics[height=.45\textheight]{lti_sys_00.pdf} \hspace{2em}
     \includegraphics[height=.45\textheight]{lti_sys_01.pdf}
@@ -599,17 +599,20 @@
 
 
 %--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{The Discrete Fourier Transform}
+\begin{frame}\frametitle{The Discrete-Time Fourier Transform}
    
-   \begin{block}{Discrete Fourier Transform (Analysis)}
+   \begin{block}{Discrete Fourier-Time Transform (Analysis)}
    The frequency spectrum for some signal $x[n]$ can be represented by: 
    \begin{align}
      X(\e^{j\omega}) = \sum_{n=-\infty}^{\infty} x[n] \e^{-j\omega n}
      \nonumber
    \end{align}
+   \begin{itemize}
+     \item For convenience, we write $\angle X(\e^{j\omega}) \in [\pm\pi]$. 
+   \end{itemize}
    \end{block}
    
-   \begin{exampleblock}{Inverse Discrete Fourier Transform (Synthesis)}
+   \begin{exampleblock}{Inverse Discrete-Time Fourier Transform (Synthesis)}
    Any discrete sequence can be represented by: 
    \begin{align}
      x[n] = \frac{1}{2\pi} \int\limits_{-\pi}^{\pi} X(\e^{j\omega}) \e^{j\omega n} \d\omega
@@ -621,6 +624,123 @@
 
 
 %--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Example}\small
+   
+   \begin{alertblock}{Absolute Summability for a Suddenly-Applied Exponential}
+   Let $x[n] = a^n u[n]$. The Discrete-Time Fourier transform of this sequence is  
+   \begin{align}
+     X(\e^{j\omega}) &= \sum_{n=-\infty}^{\infty} x[n] \e^{-j\omega n}
+     = \sum_{n=0}^{\infty} a^n \e^{-j\omega n}
+     = \sum_{n=0}^{\infty} \left(a \e^{-j\omega}\right)^n
+     \nonumber \\
+     &= \frac{1}{1 - a \e^{-j\omega}}
+   \end{align}
+   if $|a \e^{-j\omega}| < 1$ or $a < 1$. Clearly, the condition $a<1$ is the condition for the absolute summability of $x[n]$; i.e.,
+   \begin{align}
+      \sum_{n=0}^{\infty} |a|^n = \frac{1}{1-|a|} < \infty
+     \nonumber
+   \end{align} 
+   again, only if $a < 1$. 
+   \end{alertblock}
+   
+\end{frame}
+
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Example}\small
+   
+   \begin{exampleblock}{Low Pass Filter}
+   Let us deterring the impulse response of an {\em ideal} low-pass filter. The frequency response is given by: 
+   \begin{align}
+     H_{\textrm{lp}}(\e^{j\omega}) = \left\{
+       \begin{array}{l l}
+         1 & |\omega| < \omega_c \\
+         0 & \omega_c < |\omega| \leq \pi
+       \end{array}
+     \right.
+     \nonumber
+   \end{align}
+   Then 
+   \begin{align}
+     h_{\textrm{lp}}[n] &= \frac{1}{2\pi} \int\limits_{-\pi}^{\pi} H_{\textrm{lp}}(\e^{j\omega}) \e^{j\omega n} \d\omega
+     = \frac{1}{2\pi} \int\limits_{-\omega_c}^{\omega_c} \e^{j\omega n} \d\omega = \frac{1}{j 2\pi n} \left[ \e^{j\omega n} \right]_{\omega=-\omega_c}^{\omega=\omega_c}
+     \nonumber \\
+     &= \frac{1}{j 2\pi n} \left( \e^{j\omega n} - \e^{-j\omega n} \right) = \frac{\sin(\omega_c n)}{\pi n}
+     \nonumber
+   \end{align}
+   \end{exampleblock}
+   
+   \begin{alertblock}{Notes}
+   \begin{itemize}
+     \item The impulse sequence $h_{\textrm{lp}}[n]$ is not zero for $n < 0$, and $h_{\textrm{lp}}[n]$ is not absolutely summable. 
+     \item {\bf\color{red}Super Important Tip}: See Table 2.1 on page 56 of DTSP. 
+   \end{itemize}
+   \end{alertblock}
+   
+\end{frame}
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Example of Gibbs Phenomenon}\small
+  \begin{center}
+    \includegraphics[width=.35\textwidth]{gibbs01.pdf}
+    \includegraphics[width=.35\textwidth]{gibbs02.pdf}  \\
+    \includegraphics[width=.35\textwidth]{gibbs03.pdf}
+    \includegraphics[width=.35\textwidth]{gibbs04.pdf}
+  \end{center}
+\end{frame}
+
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Parseval's Theorem}\small
+  \begin{block}{\small General Idea}
+    \begin{itemize} 
+      \item Parseval's theorem provides a convenient way to compute the energy of a signal in the time-domain or frequency domain. In physics, this theorem is commonly referred to as the the Plancherel theorem. 
+    \end{itemize}
+  \end{block}
+  
+  \uncover<2->{
+  \begin{exampleblock}{\small Derivation}
+    \footnotesize
+    \begin{align}
+      \alert<8->{\frac{1}{2\pi} \int\limits_{-\pi}^{\pi} | X(\e^{j\omega}) |^2 \d\omega} 
+         &= \frac{1}{2\pi} \int\limits_{-\pi}^{\pi}  X(\e^{j\omega}) X^*(\e^{j\omega})\d\omega 
+          \uncover<3->{= \frac{1}{2\pi} \int\limits_{-\pi}^{\pi} \left( \sum_{n=-\infty}^{\infty} x[n] \e^{-j\omega n} \right) \left( \sum_{n'=-\infty}^{\infty} x^*[n'] \e^{j\omega n'} \right) \d\omega\nonumber} \\
+         \uncover<4->{&= \frac{1}{2\pi} \int\limits_{-\pi}^{\pi}  \sum_{n=-\infty}^{\infty} x[n] \sum_{n'=-\infty}^{\infty} x^*[n'] \e^{j\omega (n' -n)} \d\omega \nonumber} \\
+         \uncover<5->{&= \sum_{n=-\infty}^{\infty} x[n] \sum_{n'=-\infty}^{\infty} x^*[n']  \underbrace{\frac{1}{2\pi} \int\limits_{-\pi}^{\pi} \e^{j\omega (n' -n)}}_{ \left\{ \begin{tabular}{l l} $1$ & $n = n'$ \\ $0$ & \textrm{otherwise}  \end{tabular} \right. } \d\omega }
+         \uncover<6->{= \sum_{n=-\infty}^{\infty} x[n]x^*[n] }
+         \alert<8->{\uncover<7->{= \sum_{n=-\infty}^{\infty}| x[n]|^2 }}
+         \nonumber
+    \end{align}
+  \end{exampleblock}
+  }
+\end{frame}
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Properties of the Discrete-Time Fourier Transform}\small
+  \begin{block}{\small A Few other use properties ($x[n] \leftrightarrow X(\e^{j\omega})$)}
+    \begin{itemize}
+      \item If $y[n] = h[n] \star x[n]$ then $Y(\e^{j\omega}) = H(\e^{j\omega}) X(\e^{j\omega})$. This is the {\em Convolution Theorem}. 
+      \item Frequency Differentiation%: If $x[n] \leftrightarrow X(\e^{j\omega})$
+        \begin{align}
+          n x[n] \leftrightarrow j \frac{\d X(\e^{j\omega})}{\d\omega}
+          \nonumber
+        \end{align}
+      \item Time Shifting
+        \begin{align}
+          x[n-n_0] \leftrightarrow \e^{j\omega n_0} X(\e^{j\omega})
+          \nonumber
+        \end{align}
+      \item Frequency Shifting 
+        \begin{align}
+          \e^{j\omega_0 n} x[n] \leftrightarrow  X\left(\e^{j(\omega - \omega_0)}\right)
+          \nonumber
+        \end{align}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+%--------------------------------------------------------------------------------------------
 \begin{frame}\frametitle{Sampling}\small
   \begin{figure}\centering
     \subfigure[$x(t)$]{\includegraphics[height=.35\textheight]{sampling_p0.pdf}}
@@ -628,6 +748,23 @@
     \subfigure[quantized signal]{\includegraphics[height=.35\textheight]{sampling_p2.pdf}}
     \subfigure[$\hat{x}(t)$]{\includegraphics[height=.35\textheight]{sampling_p3.pdf}}  
   \end{figure}
+\end{frame}
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Aliasing}\small
+  \begin{center}
+     \includegraphics[width=.3\textwidth]{alias01.pdf}\hspace{.2em}
+     \includegraphics[width=.3\textwidth]{alias02.pdf}\hspace{.2em}
+     \includegraphics[width=.3\textwidth]{alias03.pdf}
+  \end{center}
+  \begin{block}{The Sampling Theorem}
+    \begin{itemize}
+      \item A bandlimited signal can be reconstructed exactly from samples taken with sampling frequency
+        \begin{align}
+          \frac{1}{T} = f_s \geq  2 f_{\textrm{max}} \nonumber
+        \end{align}
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 %--------------------------------------------------------------------------------------------
@@ -689,6 +826,71 @@
 
 
 
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Discrete Fourier Transform}\small
+  \begin{block}{What's this all about?}
+    \begin{itemize}
+      \item The Discrete Fourier Transform is a sampled version of the Discrete-Time Fourier Transform with the sampling happening in the frequency domain. We let $\hat{\omega}=\frac{2\pi k}{N}$ then the analysis equation becomes
+        \begin{align}
+          X[k] = \sum_{n=0}^{N-1} x[n] \e^{-j\frac{2\pi k n}{N}} = \sum_{n=0}^{N-1} x[n] W_N^{kn} \nonumber
+        \end{align}
+        and the synthesis equation is given by 
+        \begin{align}
+          x[k] = \sum_{k=0}^{N-1} X[n] \e^{j\frac{2\pi k n}{N}} = \sum_{k=0}^{N-1} X[n] W_N^{-kn} \nonumber
+        \end{align}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Clever Manipulations of the Discrete Fourier Transform}\small
+  Let us take a moment and begin by decomposing the Discrete Fourier Transform into the sum of the even and odd terms of $n \in [N-1]$.
+  \begin{align}
+    X[k] &= \sum_{n=0}^{N-1} x[n] \e^{-j\frac{2\pi k n}{N}} = \sum_{n=0}^{(N/2)-1} x[2n] \e^{-j\frac{2\pi k (2n)}{N}} + \sum_{n=0}^{(N/2)-1} x[2n+1] \e^{-j\frac{2\pi k (2n+1)}{N}} \nonumber \\
+    &= \sum_{n=0}^{(N/2)-1} x[2n] \e^{-j\frac{2\pi k (2n)}{N}} + \e^{-j\frac{2\pi k}{N}} \sum_{n=0}^{(N/2)-1} x[2n+1] \e^{-j\frac{2\pi k (2n)}{N}}  \nonumber \\
+    &= \sum_{n=0}^{(N/2)-1} x[2n] W_N^{2kn} + W_N^{k} \sum_{n=0}^{(N/2)-1} x[2n+1] W_N^{2kn} \nonumber \\
+    &= \sum_{n=0}^{(N/2)-1} x[2n] W_{N/2}^{kn} + W_N^{k} \sum_{n=0}^{(N/2)-1} x[2n+1] W_{N/2}^{kn} \nonumber 
+  \end{align}
+  Let us take a moment to examine the 2nd half of the transform, that is, $\hat{k} = k +N/2$.
+\end{frame}
+
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Clever Manipulations of the Discrete Fourier Transform (cont.)}\small
+  Continuing along, 
+  \begin{align}
+    X[k+N/2] &= \sum_{n=0}^{(N/2)-1} x[2n] W_{N/2}^{(k+N/2)n} + W_N^{k+N/2} \sum_{n=0}^{(N/2)-1} x[2n+1] W_{N/2}^{(k+N/2)n} \nonumber 
+  \end{align}
+  After some examination, we see that $W_{N/2}^{(k+N/2)n} = W_{N/2}^{kn} W_{N/2}^{nN/2} = W_{N/2}^{kn} \e^{-j2\pi n 2N/(2N)} = W_{N/2}^{kn}$. Also, $W_N^{k+N/2} =  -W_N^{k}$. Then 
+  \begin{align}
+    X[k+N/2] &= \sum_{n=0}^{(N/2)-1} x[2n] W_{N/2}^{kn} -W_N^{k} \sum_{n=0}^{(N/2)-1} x[2n+1] W_{N/2}^{kn}\nonumber 
+  \end{align}
+  and recall that 
+  \begin{align}
+    X[k] &= \sum_{n=0}^{(N/2)-1} x[2n] W_{N/2}^{kn} + W_N^{k} \sum_{n=0}^{(N/2)-1} x[2n+1] W_{N/2}^{kn} \nonumber 
+  \end{align}
+  Okay\ldots What did we just show? 
+\end{frame}
+
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Ladies \& Gentlemen: I give you the Fast Fourier Transform}\small
+  \begin{block}{Decimation in Time FFT}
+    \begin{itemize}
+      \item We derived the basis for a radix-2 decimation in time FFT algorithm. The terms $W_N^{k}$ are called ``twiddle'' factors and we assume $N$ is a power of 2. 
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{FFT in one picture}\small
+  \begin{center}
+    \includegraphics[height=\textheight]{fft.pdf}
+  \end{center}
+\end{frame}
+
 
 %--------------------------------------------------------------------------------------------
 \begin{frame}\frametitle{$Z$-transform}\small
@@ -724,39 +926,6 @@
 \end{frame}
 
 
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{Discrete-Time Fourier Transform}\small
-\end{frame}
-
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{Parseval's Theorem}\small
-  \begin{block}{\small General Idea}
-    \begin{itemize} 
-      \item Parseval's theorem provides a convenient way to compute the energy of a signal in the time-domain or frequency domain. In physics, this theorem is commonly referred to as the the Plancherel theorem. 
-    \end{itemize}
-  \end{block}
-  
-  \uncover<2->{
-  \begin{exampleblock}{\small Derivation}
-    \footnotesize
-    \begin{align}
-      \alert<8->{\frac{1}{2\pi} \int\limits_{-\pi}^{\pi} | X(\e^{j\omega}) |^2 \d\omega} 
-         &= \frac{1}{2\pi} \int\limits_{-\pi}^{\pi}  X(\e^{j\omega}) X^*(\e^{j\omega})\d\omega 
-          \uncover<3->{= \frac{1}{2\pi} \int\limits_{-\pi}^{\pi} \left( \sum_{n=-\infty}^{\infty} x[n] \e^{-j\omega n} \right) \left( \sum_{n'=-\infty}^{\infty} x^*[n'] \e^{j\omega n'} \right) \d\omega\nonumber} \\
-         \uncover<4->{&= \frac{1}{2\pi} \int\limits_{-\pi}^{\pi}  \sum_{n=-\infty}^{\infty} x[n] \sum_{n'=-\infty}^{\infty} x^*[n'] \e^{j\omega (n' -n)} \d\omega \nonumber} \\
-         \uncover<5->{&= \sum_{n=-\infty}^{\infty} x[n] \sum_{n'=-\infty}^{\infty} x^*[n']  \underbrace{\frac{1}{2\pi} \int\limits_{-\pi}^{\pi} \e^{j\omega (n' -n)}}_{ \left\{ \begin{tabular}{l l} $1$ & $n = n'$ \\ $0$ & \textrm{otherwise}  \end{tabular} \right. } \d\omega }
-         \uncover<6->{= \sum_{n=-\infty}^{\infty} x[n]x^*[n] }
-         \alert<8->{\uncover<7->{= \sum_{n=-\infty}^{\infty}| x[n]|^2 }}
-         \nonumber
-    \end{align}
-  \end{exampleblock}
-  }
-\end{frame}
-
-
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{Fast Fourier Transform}\small
-\end{frame}
 
 
 

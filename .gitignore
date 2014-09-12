@@ -6,3 +6,10 @@
 *.out
 *.snm
 *.key
+
+*.m~
+*.swp
+
+w1-intro/src/eps/*.eps
+w1-intro/src/eps/*.pdf
+*.eps

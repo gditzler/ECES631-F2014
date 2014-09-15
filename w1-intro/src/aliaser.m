@@ -20,7 +20,7 @@ xlim([min(ta),max(ta)])
 xlabel('time','FontSize',22)
 title('f_1=60Hz, f_s=400Hz','FontSize',22)
 set(gca, 'fontsize', 22)
-saveas(h, 'alias01.eps', 'eps2c')
+saveas(h, 'eps/alias01.eps', 'eps2c')
 
 h = figure;
 hold on 
@@ -31,7 +31,7 @@ xlim([min(ta),max(ta)])
 title('f_1=340Hz, f_s=400Hz','FontSize',22)
 xlabel('time','FontSize',22)
 set(gca, 'fontsize', 22)
-saveas(h, 'alias02.eps', 'eps2c')
+saveas(h, 'eps/alias02.eps', 'eps2c')
 
 h = figure;
 hold on 
@@ -42,4 +42,4 @@ title('f_1=460Hz, f_s=400Hz','FontSize',22)
 xlim([min(ta),max(ta)])
 xlabel('time','FontSize',22)
 set(gca, 'fontsize', 22)
-saveas(h, 'alias03.eps', 'eps2c')
+saveas(h, 'eps/alias03.eps', 'eps2c')

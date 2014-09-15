@@ -1,7 +1,6 @@
 
 
 %\documentclass[mathserif,9pt]{beamer}
-%\documentclass[9pt]{beamer}
 \documentclass[mathserif,9pt,handout]{beamer}
 
 
@@ -109,7 +108,7 @@
     \vspace{1em}
     
     {\bf\color{blue!50!black}Instructor} \\
-    Dr. Gail Rosen (\url{gailr@ece.drexel.edu}) \\
+    Dr. Gail Rosen ({\color{blue}\url{gailr@ece.drexel.edu}}) \\
     \vspace{1em}
     
     {\bf\color{blue!50!black}Office Hours} \\
@@ -201,6 +200,7 @@
      \nonumber
   \end{align}
   
+  \uncover<2->{
   {\bf\color{blue!50!black}Exponential Sequences} \\
   The exponential sequences is important for representing and analyzing linear time-invariant discrete-time systems
   \begin{align}
@@ -208,7 +208,9 @@
   \end{align}
   where if $A,\alpha \in \Rbb$ then $x[n] \in \Rbb$.\\
   \vspace{1em} 
+  }
   
+  \uncover<3->{
   {\bf\color{blue!50!black}Euler's Identities} \\
   Never forget!
   \begin{align}
@@ -218,6 +220,7 @@
     \e^{-j\omega n} = \cos(\omega n) - j \sin(\omega n)
     \nonumber
   \end{align}
+  }
 \end{frame}
 
 %--------------------------------------------------------------------------------------------
@@ -249,6 +252,7 @@
     where $\alpha$ is an arbitrary constant. 
   \end{block}
   
+  \uncover<2->{
   \begin{exampleblock}{Questions}
     Is an accumulator system given by  
     \begin{align}
@@ -257,6 +261,7 @@
     \end{align}
     a linear system?
   \end{exampleblock}
+  }
 \end{frame}
 
 %--------------------------------------------------------------------------------------------
@@ -265,6 +270,7 @@
     A system is said to be time-invariant if a delay on the input sequence results in an equal delay of the output sequence. That is, if $\hat{x}[n] = x[n-n_0]$ then $\hat{y}[n] = y[n-n_0]$. 
   \end{block}
   
+  \uncover<2->{
   \begin{exampleblock}{The Accumulator as a Time-Invariant System}
     Define $x_i[n] = x[n-n_0]$ and let
     \begin{align}
@@ -280,6 +286,7 @@
       \nonumber
     \end{align}
   \end{exampleblock}
+  }
 \end{frame}
 
 
@@ -526,6 +533,7 @@
     \end{itemize}
   \end{block}
   
+  \uncover<2->{
   \begin{exampleblock}{Eigenfunctions for LTI Systems}
     To demonstrate the eigenfunction property of LTI systems, let $x[n] = \e^{j\omega n}$, then 
     \begin{align}
@@ -537,6 +545,7 @@
     \end{align}
     Thus, $\e^{j\omega n}$ is an eigenfunction with a corresponding eigenvalue $H(\e^{j\omega})$. Furthermore, for convenience, we may write $H(\e^{j\omega})$ as $|H(\e^{j\omega})| \e^{j\angle H(\e^{j\omega})}$.
   \end{exampleblock}
+  }
 \end{frame}
 
 %--------------------------------------------------------------------------------------------
@@ -562,10 +571,14 @@
   Therefore, the frequency response is given by 
   \begin{align}
     H(\e^{j\omega}) &= \frac{1}{M_1+M_2+1} \sum_{n=-M_1}^{M_2} \e^{-j\omega} \nonumber \\
-    &=\frac{1}{M_1+M_2+1} \frac{\e^{j\omega M_1} - \e^{-j\omega (M_2 +1)}}{1 - \e^{-j\omega}} \nonumber \\
-    &=\frac{1}{M_1+M_2+1} \frac{\e^{j\omega (M_1+M_2+1)/2} - \e^{-j\omega (M_1+M_2+1)/2}}{1 - \e^{-j\omega}} \e^{-j\omega (M_2-M_1+1)/2}\nonumber \\
-    &=\frac{1}{M_1+M_2+1} \frac{\e^{j\omega (M_1+M_2+1)/2} - \e^{-j\omega (M_1+M_2+1)/2}}{ \e^{j\omega/2} -\e^{-j\omega/2} } \e^{-j\omega (M_2-M_1)/2}\nonumber \\
-    &=\frac{1}{M_1+M_2+1} \frac{ \sin\left( \omega (M_1+M_2+1)/2 \right) }{ \sin(\omega/2) } \e^{-j\omega (M_2-M_1)/2}\nonumber 
+    \uncover<2->{
+    &=\frac{1}{M_1+M_2+1} \frac{\e^{j\omega M_1} - \e^{-j\omega (M_2 +1)}}{1 - \e^{-j\omega}} \nonumber }\\
+    \uncover<3->{
+    &=\frac{1}{M_1+M_2+1} \frac{\e^{j\omega (M_1+M_2+1)/2} - \e^{-j\omega (M_1+M_2+1)/2}}{1 - \e^{-j\omega}} \e^{-j\omega (M_2-M_1+1)/2}\nonumber }\\
+    \uncover<4->{
+    &=\frac{1}{M_1+M_2+1} \frac{\e^{j\omega (M_1+M_2+1)/2} - \e^{-j\omega (M_1+M_2+1)/2}}{ \e^{j\omega/2} -\e^{-j\omega/2} } \e^{-j\omega (M_2-M_1)/2}\nonumber }\\
+    \uncover<5->{
+    &=\frac{1}{M_1+M_2+1} \frac{ \sin\left( \omega (M_1+M_2+1)/2 \right) }{ \sin(\omega/2) } \e^{-j\omega (M_2-M_1)/2}\nonumber }
   \end{align}   
    
 \end{frame}
@@ -633,7 +646,7 @@
      = \sum_{n=0}^{\infty} a^n \e^{-j\omega n}
      = \sum_{n=0}^{\infty} \left(a \e^{-j\omega}\right)^n
      \nonumber \\
-     &= \frac{1}{1 - a \e^{-j\omega}}
+     &= \frac{1}{1 - a \e^{-j\omega}} \nonumber
    \end{align}
    if $|a \e^{-j\omega}| < 1$ or $a < 1$. Clearly, the condition $a<1$ is the condition for the absolute summability of $x[n]$; i.e.,
    \begin{align}
@@ -660,31 +673,32 @@
      \right.
      \nonumber
    \end{align}
-   Then 
+   \uncover<2->{Then} 
    \begin{align}
-     h_{\textrm{lp}}[n] &= \frac{1}{2\pi} \int\limits_{-\pi}^{\pi} H_{\textrm{lp}}(\e^{j\omega}) \e^{j\omega n} \d\omega
-     = \frac{1}{2\pi} \int\limits_{-\omega_c}^{\omega_c} \e^{j\omega n} \d\omega = \frac{1}{j 2\pi n} \left[ \e^{j\omega n} \right]_{\omega=-\omega_c}^{\omega=\omega_c}
+     \uncover<2->{h_{\textrm{lp}}[n] &= \frac{1}{2\pi} \int\limits_{-\pi}^{\pi} H_{\textrm{lp}}(\e^{j\omega}) \e^{j\omega n} \d\omega}
+     \uncover<3->{= \frac{1}{2\pi} \int\limits_{-\omega_c}^{\omega_c} \e^{j\omega n} \d\omega}\uncover<4->{ = \frac{1}{j 2\pi n} \left[ \e^{j\omega n} \right]_{\omega=-\omega_c}^{\omega=\omega_c}}
      \nonumber \\
-     &= \frac{1}{j 2\pi n} \left( \e^{j\omega n} - \e^{-j\omega n} \right) = \frac{\sin(\omega_c n)}{\pi n}
+     \uncover<5->{&= \frac{1}{j 2\pi n} \left( \e^{j\omega n} - \e^{-j\omega n} \right) = \frac{\sin(\omega_c n)}{\pi n}}
      \nonumber
    \end{align}
    \end{exampleblock}
    
+   \uncover<6->{
    \begin{alertblock}{Notes}
    \begin{itemize}
      \item The impulse sequence $h_{\textrm{lp}}[n]$ is not zero for $n < 0$, and $h_{\textrm{lp}}[n]$ is not absolutely summable. 
      \item {\bf\color{red}Super Important Tip}: See Table 2.1 on page 56 of DTSP. 
    \end{itemize}
    \end{alertblock}
-   
+   }
 \end{frame}
 
 %--------------------------------------------------------------------------------------------
 \begin{frame}\frametitle{Example of Gibbs Phenomenon}\small
   \begin{center}
-    \includegraphics[width=.35\textwidth]{gibbs01.pdf}
+    \includegraphics[width=.35\textwidth]{gibbs01.pdf} \hspace{1em}
     \includegraphics[width=.35\textwidth]{gibbs02.pdf}  \\
-    \includegraphics[width=.35\textwidth]{gibbs03.pdf}
+    \includegraphics[width=.35\textwidth]{gibbs03.pdf} \hspace{1em}
     \includegraphics[width=.35\textwidth]{gibbs04.pdf}
   \end{center}
 \end{frame}
@@ -720,17 +734,17 @@
   \begin{block}{\small A Few other use properties ($x[n] \leftrightarrow X(\e^{j\omega})$)}
     \begin{itemize}
       \item If $y[n] = h[n] \star x[n]$ then $Y(\e^{j\omega}) = H(\e^{j\omega}) X(\e^{j\omega})$. This is the {\em Convolution Theorem}. 
-      \item Frequency Differentiation%: If $x[n] \leftrightarrow X(\e^{j\omega})$
+      \item {\color{blue!50!black}Frequency Differentiation}%: If $x[n] \leftrightarrow X(\e^{j\omega})$
         \begin{align}
           n x[n] \leftrightarrow j \frac{\d X(\e^{j\omega})}{\d\omega}
           \nonumber
         \end{align}
-      \item Time Shifting
+      \item {\color{blue!50!black}Time Shifting}
         \begin{align}
           x[n-n_0] \leftrightarrow \e^{j\omega n_0} X(\e^{j\omega})
           \nonumber
         \end{align}
-      \item Frequency Shifting 
+      \item {\color{blue!50!black}Frequency Shifting} 
         \begin{align}
           \e^{j\omega_0 n} x[n] \leftrightarrow  X\left(\e^{j(\omega - \omega_0)}\right)
           \nonumber
@@ -738,6 +752,45 @@
     \end{itemize}
   \end{block}
 \end{frame}
+
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Discrete-Time Fourier Transforms using Tables}\small
+  Suppose that 
+  \begin{align}
+    X(\e^{j\omega}) = \frac{1}{\left(1 - a \e^{j\omega}\right)\left(1 - b \e^{j\omega}\right)} \nonumber
+  \end{align}
+  for $a \neq b$. \uncover<2->{Using the equation for the inverse discrete-time Fourier transform leads to an integral that is difficult to evaluate.} \uncover<3->{However, we can use partial fraction expansion to put $X(\e^{j\omega})$ in a form where we can use tables of transforms. 
+  \begin{align}
+    X(\e^{j\omega}) = \frac{\frac{a}{a-b}}{1 - a \e^{j\omega}} + \frac{\frac{b}{a-b}}{1 - b \e^{j\omega}} \nonumber
+  \end{align}
+  } \uncover<4->{After of examining tables with discrete-time Fourier transform leads to
+  \begin{align}
+    x[n] = \left( \frac{a}{a-b} \right) a^n u[n] - \left( \frac{b}{a-b} \right) b^n u[n]
+    \nonumber
+  \end{align}
+  }
+\end{frame}
+
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Discrete-Time Fourier Transforms using Tables}\small
+  Suppose that 
+  \begin{align}
+    X(\e^{j\omega}) = \frac{1}{\left(1 - a \e^{j\omega}\right)\left(1 - b \e^{j\omega}\right)} \nonumber
+  \end{align}
+  for $a \neq b$. Using the equation for the inverse discrete-time Fourier transform leads to an integral that is difficult to evaluate. However, we can use partial fraction expansion to put $X(\e^{j\omega})$ in a form where we can use tables of transforms. 
+  \begin{align}
+    X(\e^{j\omega}) = \frac{\frac{a}{a-b}}{1 - a \e^{j\omega}} + \frac{\frac{b}{a-b}}{1 - b \e^{j\omega}} \nonumber
+  \end{align}
+  After of examining tables with discrete-time Fourier transform leads to
+  \begin{align}
+    x[n] = \left( \frac{a}{a-b} \right) a^n u[n] - \left( \frac{b}{a-b} \right) b^n u[n]
+    \nonumber
+  \end{align}
+\end{frame}
+
+
 
 
 %--------------------------------------------------------------------------------------------
@@ -894,7 +947,65 @@
 
 %--------------------------------------------------------------------------------------------
 \begin{frame}\frametitle{$Z$-transform}\small
+  \begin{block}{What is the $Z$-transform: In words}
+    \begin{itemize}
+      \item The $Z$-transform is a little more general than the discrete-time Fourier transform. In fact, the discrete-time Fourier transform is a special can case of the $Z$-transform. The DTFT is the $Z$-transform being evaluated on the unit circle. 
+      \item The $Z$-transform of a sequence $x[n]$ must have its region of convergence within the unit circle for the DTFT to exist. 
+      \item The $Z$-transform is the discrete cousin of the Laplace transform. 
+    \end{itemize}
+  \end{block}
+  
+  \begin{exampleblock}{What is the $Z$-transform: In equations}
+    \begin{itemize}
+      \item The $Z$-transform is defined by
+        \begin{align}
+          X(z) = \sum_{n=-\infty}^{\infty} x[n] z^{-n} 
+          \nonumber
+        \end{align}
+        where $z \in \mathbb{C}$.
+      \item The set of values for $z$ where the Laurent series converges is called the {\em\color{green!50!black}region of convergence}. 
+        \begin{align}
+          \sum_{n=-\infty}^{\infty} |x[n]| |z|^{-n} \leq \infty
+          \nonumber
+        \end{align}
+    \end{itemize}
+  \end{exampleblock}
 \end{frame}
+
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{$Z$-transform}\small
+  \begin{block}{$Z$-transform}
+    \begin{itemize}
+      \item The $Z$-transform can {\em\color{blue!50!black}generally} be written as a ratio of polynomials of $z$.
+        \begin{align}
+          X(z) =\frac{P(z)}{Q(z)}
+          \nonumber
+        \end{align} 
+        The roots of $P(z)$ and $Q(z)$ are called the {\em\color{blue!50!black}zeros} and {\em\color{blue!50!black}poles}, respectively. 
+      \item Poles could occur at $z=0$ or $|z|=\infty$. The locations of the poles are very important for determining the region of convergence. 
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{$Z$-transform (Example)}\small
+  Consider the signal $x[n] = a^n u[n]$. Because it is non-zero for only $n \geq 0$, this is an example of a right-sided sequence. By definition, 
+  \begin{align}
+    X(z) = \sum_{n=-\infty}^{\infty} a^n u[n] z^{-n} = \sum_{n=0}^{\infty} (az^{-1})^n \nonumber
+  \end{align}
+  For convergence of $X(z)$, we need
+  \begin{align}
+     \sum_{n=0}^{\infty} |az^{-1}|^n  \leq \infty\nonumber
+  \end{align}
+  Thus the ROC is all the values for $z$ where $|az^{-1}| < 1$ or $|a| < |z|$.  Then 
+  \begin{align}
+    X(z)  = \sum_{n=0}^{\infty} (az^{-1})^n  = \frac{1}{1 - az^{-1}} = \frac{z}{z-a} \nonumber
+  \end{align}
+  only if $|a| < |z|$.
+\end{frame}
+
+
 
 %--------------------------------------------------------------------------------------------
 \begin{frame}\frametitle{$Z$-transform (Example)}\small

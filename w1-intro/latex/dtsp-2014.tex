@@ -984,6 +984,7 @@
         \end{align} 
         The roots of $P(z)$ and $Q(z)$ are called the {\em\color{blue!50!black}zeros} and {\em\color{blue!50!black}poles}, respectively. 
       \item Poles could occur at $z=0$ or $|z|=\infty$. The locations of the poles are very important for determining the region of convergence. 
+      \item If the ROC does not include the unit circle then the DTFT does not exist
     \end{itemize}
   \end{block}
 \end{frame}
@@ -1005,6 +1006,48 @@
   only if $|a| < |z|$.
 \end{frame}
 
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{$Z$-transform (Example)}\small
+  Consider the signal $x[n] = -a^n u[-n-1]$. Imagine looking at the previous signal in a mirror. Because it is non-zero for only $n \leq -1$, this is an example of a left-sided sequence. By definition, 
+  \begin{align}
+    X(z) = \sum_{n=-\infty}^{\infty} -a^n u[-n-1] z^{-n} = -\sum_{n=-\infty}^{-1} a^n z^{-n}=-\sum_{n=1}^{\infty} a^{-n} z^{n} = 1-\sum_{n=0}^{\infty} (a^{-1} z)^n \nonumber
+  \end{align}
+  \uncover<2->{If $a^{-1} z < 1$ or $|a| > |z|$.  Then 
+  \begin{align}
+    \alert<3->{X(z)}  = 1-\sum_{n=0}^{\infty} (a^{-1} z)^n = 1 - \frac{1}{1 - a^{-1}z} =  \frac{1}{1 - az^{-1}} = \alert<3->{\frac{z}{z-a}} \nonumber
+  \end{align}
+  only if \alert<3->{$|a| > |z|$}.}\\
+  \vspace{1em}
+  
+  \uncover<2->{Note that $|a| < 1$, the sequence $-a^n u[-n-1]$ grows exponentially as $n \rightarrow -\infty$, and thus, the DTFT does not exist. }
+\end{frame}
+
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{A Couple of Notes}\small
+  \begin{block}{More Observations About the $Z$-transform}
+    \begin{itemize}
+      \item If $x[n]$ has a $Z$-transform $X(z)$, and $x[n]$ is a sum of two terms. The ROC will be the intersection of the two individual ROCs. 
+      \item Obvious, I know, but the $Z$-transform is a linear operator. 
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Poles and Zeros of a System}\small
+  \begin{center}
+    \includegraphics[height=.7\textheight]{notch_zp.pdf} \\
+    There are poles close to the zeros, which have a magnitude just a little bit smaller than 1. 
+  \end{center}
+\end{frame}
+
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{The Systems Frequency Response}\small
+  \begin{center}
+    \includegraphics[height=.7\textheight]{notch_freq.pdf} 
+  \end{center}
+\end{frame}
 
 
 %--------------------------------------------------------------------------------------------

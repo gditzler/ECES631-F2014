@@ -773,24 +773,6 @@
 \end{frame}
 
 
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{Discrete-Time Fourier Transforms using Tables}\small
-  Suppose that 
-  \begin{align}
-    X(\e^{j\omega}) = \frac{1}{\left(1 - a \e^{j\omega}\right)\left(1 - b \e^{j\omega}\right)} \nonumber
-  \end{align}
-  for $a \neq b$. Using the equation for the inverse discrete-time Fourier transform leads to an integral that is difficult to evaluate. However, we can use partial fraction expansion to put $X(\e^{j\omega})$ in a form where we can use tables of transforms. 
-  \begin{align}
-    X(\e^{j\omega}) = \frac{\frac{a}{a-b}}{1 - a \e^{j\omega}} + \frac{\frac{b}{a-b}}{1 - b \e^{j\omega}} \nonumber
-  \end{align}
-  After of examining tables with discrete-time Fourier transform leads to
-  \begin{align}
-    x[n] = \left( \frac{a}{a-b} \right) a^n u[n] - \left( \frac{b}{a-b} \right) b^n u[n]
-    \nonumber
-  \end{align}
-\end{frame}
-
-
 
 
 %--------------------------------------------------------------------------------------------
@@ -929,11 +911,19 @@
 
 %--------------------------------------------------------------------------------------------
 \begin{frame}\frametitle{Ladies \& Gentlemen: I give you the Fast Fourier Transform}\small
-  \begin{block}{Decimation in Time FFT}
+  \begin{block}{Decimation-in-Time FFT}
     \begin{itemize}
-      \item We derived the basis for a radix-2 decimation in time FFT algorithm. The terms $W_N^{k}$ are called ``twiddle'' factors and we assume $N$ is a power of 2. 
+      \item We derived the basis for a radix-2 decimation in time FFT algorithm. The terms $W_N^{k}$ are called ``twiddle'' factors. 
+      \item Most implementations of the sequence that we are taking the FFT has a length that is of length $2^K$. Why the power of 2 length assumption?
+        \begin{itemize}
+          \item What if the sequence is not of length $2^K$? Zero padding?
+          \item Does zero padding give you more frequency resolution?
+        \end{itemize}
     \end{itemize}
   \end{block}
+  \begin{center}
+      \includegraphics[height=.4\textheight]{sampling_dtft.pdf}
+    \end{center}
 \end{frame}
 
 
@@ -979,7 +969,7 @@
     \begin{itemize}
       \item The $Z$-transform can {\em\color{blue!50!black}generally} be written as a ratio of polynomials of $z$.
         \begin{align}
-          X(z) =\frac{P(z)}{Q(z)}
+          H(z) =\frac{P(z)}{Q(z)} = \frac{\sum_{k=0}^{N-1} b_k z^{-k}}{\sum_{j=0}^{M-1}a_j z^{-j}} = \frac{\prod_{k=0}^{N-1}(1 - \beta_k z^{-1})}{\prod_{j=0}^{M-1}(1 - \alpha_j z^{-1})}
           \nonumber
         \end{align} 
         The roots of $P(z)$ and $Q(z)$ are called the {\em\color{blue!50!black}zeros} and {\em\color{blue!50!black}poles}, respectively. 

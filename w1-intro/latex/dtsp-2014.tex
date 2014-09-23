@@ -112,7 +112,7 @@
     \vspace{1em}
     
     {\bf\color{blue!50!black}Office Hours} \\
-    By appointment. \\
+    See Syllabus. \\
     \vspace{1em}
 
     
@@ -121,10 +121,11 @@
     \vspace{1em}
     
     {\bf\color{blue!50!black}Other Stuff}
-    \begin{itemize}
-      \item DSP is a {\em prerequisite}!
+    \begin{mitemize}
+      %\item DSP is a {\em prerequisite}!
       \item Course materials are available on BBLearn.  
-    \end{itemize}
+      \item Homework \#1 is posted. Due in 2 weeks. 
+    \end{mitemize}
     \vspace{1em}
   \end{columns}
 \end{frame}
@@ -508,7 +509,7 @@
   \end{block}
   \begin{exampleblock}{$\star$Constant Coefficient Linear Difference$\star$}
     \begin{align}
-    \sum_{k=0}^{M} a_k y[n-k] = \sum_{m=0}^{M} b_m x[n-m]
+    \sum_{k=0}^{N-1} a_k y[n-k] = \sum_{m=0}^{M-1} b_m x[n-m]
     \nonumber
     \end{align}
   \end{exampleblock}
@@ -537,7 +538,7 @@
   \begin{exampleblock}{Eigenfunctions for LTI Systems}
     To demonstrate the eigenfunction property of LTI systems, let $x[n] = \e^{j\omega n}$, then 
     \begin{align}
-      y[n] = \sum_{k=-\infty}^{\infty}h[n-k] \e^{-j\omega(n-k)} = \e^{j\omega} \left(\sum_{k=-\infty}^{\infty}h[n-k] \e^{-jk}\right) \nonumber
+      y[n] = \sum_{k=-\infty}^{\infty}h[n-k] \e^{-j\omega(n-k)} = \e^{j\omega n} \left(\sum_{k=-\infty}^{\infty}h[n-k] \e^{-j\omega k}\right) \nonumber
     \end{align}
     If $H(\e^{j\omega}) = \sum_{k=-\infty}^{\infty}{h[k]\e^{-j\omega k}}$, then 
     \begin{align}
@@ -570,7 +571,7 @@
 
   Therefore, the frequency response is given by 
   \begin{align}
-    H(\e^{j\omega}) &= \frac{1}{M_1+M_2+1} \sum_{n=-M_1}^{M_2} \e^{-j\omega} \nonumber \\
+    H(\e^{j\omega}) &= \frac{1}{M_1+M_2+1} \sum_{n=-M_1}^{M_2} \e^{-j\omega n} \nonumber \\
     \uncover<2->{
     &=\frac{1}{M_1+M_2+1} \frac{\e^{j\omega M_1} - \e^{-j\omega (M_2 +1)}}{1 - \e^{-j\omega}} \nonumber }\\
     \uncover<3->{
@@ -770,6 +771,10 @@
     \nonumber
   \end{align}
   }
+  
+  \uncover<5->{
+    {\noindent\bf Does this look unfamiliar?} Read up on partial fraction expansion. 
+  }
 \end{frame}
 
 
@@ -798,6 +803,7 @@
         \begin{align}
           \frac{1}{T} = f_s \geq  2 f_{\textrm{max}} \nonumber
         \end{align}
+      \item<2-> {\color{blue}Question}: If I sampled a signal $x$ which is a cosine with $f = 34,723,487$Hz at a rate of $f_s = 1,234$Hz, where will it show up in the spectrum? Are we seeing folding?
     \end{itemize}
   \end{block}
 \end{frame}

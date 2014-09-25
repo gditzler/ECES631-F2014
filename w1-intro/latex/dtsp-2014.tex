@@ -1,7 +1,7 @@
 
 
-%\documentclass[mathserif,9pt]{beamer}
-\documentclass[mathserif,9pt,handout]{beamer}
+\documentclass[mathserif,9pt]{beamer}
+%\documentclass[mathserif,9pt,handout]{beamer}
 
 
 \usepackage{amsmath}
@@ -441,7 +441,7 @@
   \uncover<6->{
   \noindent{\bf\color{blue!50!black}Casual?:} \uncover<7->{No}\\
   \begin{align}
-    y[-1] = x[M],\textrm{but }y[1] = x[M] 
+    y[-1] = x[-M],\textrm{but }y[1] = x[M] 
     \nonumber
   \end{align}
   }
@@ -603,12 +603,14 @@
   y[n] = \e^{j\omega n} \left(\sum_{k=-\infty}^{\infty}h[k] \e^{-j\omega k}\right) = H(\e^{j\omega})\e^{j\omega n} = \e^{j\omega (n - n_0)} = \e^{j\omega n} \e^{-j\omega n_0}
   \nonumber
   \end{align}
+  \uncover<2->{
   Thus for any value of $\omega$, we obtain an output that is the input multiplied by a complex constant. The frequency response is given by: 
   \begin{align}
   H(\e^{j\omega}) = \e^{-j\omega n_0}
   \nonumber
   \end{align}
   What is $|H(\e^{j\omega})|$ and $\angle H(\e^{j\omega})$?
+  }
   \end{block}
 \end{frame}
 
@@ -616,23 +618,25 @@
 %--------------------------------------------------------------------------------------------
 \begin{frame}\frametitle{Example}\small
   \begin{exampleblock}{Frequency Response on the Ideal Delay}
-  Let us examine the simple system $y[n] = x[n-n_0]$ where $n_0$ is a fixed integer. If we consider $x[n] = \e^{j\omega n}$ as an input to the system, then: 
+  Let us examine what happens when $y[n] = h[n] \star x[n]$, where 
   \begin{align}
     x[n] = A \cos(\omega_0 n + \phi) = \frac{A}{2}\e^{j\phi}\e^{j\omega_0 n} + \frac{A}{2}\e^{-j\phi}\e^{-j\omega_0 n} = x_1[n] + x_2[n]
     \nonumber
   \end{align}
-  If $y[n] = h[n]\star x[n]$, then 
+  \uncover<2->{If $y[n] = h[n]\star x[n]$, then }
   \begin{align}
-    y[n] &= \frac{A}{2}\left( H(\e^{j\omega_0}) \e^{j\phi}\e^{j\omega_0 n} +H(\e^{-j\omega_0}) \e^{-j\phi}\e^{-j\omega_0 n} \right)
+    \uncover<2->{y[n] &= y_1[n] + y_2[n] \nonumber }\\
+    \uncover<3->{&= \frac{A}{2}\left( H(\e^{j\omega_0}) \e^{j\phi}\e^{j\omega_0 n} +H(\e^{-j\omega_0}) \e^{-j\phi}\e^{-j\omega_0 n} \right)}
     \nonumber \\
-    &= A |H(\e^{j\omega_0})| \cos(\omega_0 n + \phi + \angle H(\e^{j\omega_0}))
+    \uncover<4->{&= A |H(\e^{j\omega_0})| \cos(\omega_0 n + \phi + \angle H(\e^{j\omega_0}))}
     \nonumber
   \end{align}
-  For the simple example of an ideal delay we have $\angle H(\e^{j\omega_0} = -\omega_0 n_0$, then 
+  \uncover<5->{For the simple example of an ideal delay we have $\angle H(\e^{j\omega_0} = -\omega_0 n_0$, then 
   \begin{align}
     y[n] &= A  \cos(\omega_0 n + \phi + -\omega_0 n_0)= A  \cos(\omega_0 (n - n_0)+ \phi)
     \nonumber
   \end{align}
+  }
   \end{exampleblock}
 \end{frame}
 
@@ -783,20 +787,25 @@
   \begin{exampleblock}{\small Derivation}
   Lets us look at what happens when we take the derivative of the DTFT of a sequence $x[n]$. 
   \begin{align}
-    \frac{\d X(\e^{j\omega})}{\d \omega} = \frac{\d}{\d\omega}\left\{\sum_{n=-\infty}^{\infty} x[n] \e^{-j\omega n}\right\} 
-    = \sum_{n=-\infty}^{\infty} x[n] \frac{\d}{\d\omega}\left\{\e^{-j\omega n}\right\}
-    = -j \sum_{n=-\infty}^{\infty} n x[n] \e^{-j\omega n} \nonumber
+    \frac{\d X(\e^{j\omega})}{\d \omega} \uncover<2->{= \frac{\d}{\d\omega}\left\{\sum_{n=-\infty}^{\infty} x[n] \e^{-j\omega n}\right\} }
+    \uncover<3->{= \sum_{n=-\infty}^{\infty} x[n] \frac{\d}{\d\omega}\left\{\e^{-j\omega n}\right\}}
+    \uncover<4->{= -j \sum_{n=-\infty}^{\infty} n x[n] \e^{-j\omega n} }\nonumber
   \end{align}
-  Therefore,
+  
+  \uncover<5->{Therefore,
   \begin{align}
     n x[n] \leftrightarrow j \frac{\d X(\e^{j\omega})}{\d\omega}
           \nonumber 
   \end{align}
+  }
   \end{exampleblock}
   
+  
+  \uncover<6->{
   \begin{block}{\small Example}
     Find the DTFT of $n a^n u[n]$.
   \end{block}
+  }
 \end{frame}
 
 
@@ -852,7 +861,7 @@
   }
   
   \uncover<5->{
-    {\noindent\bf Does this look unfamiliar?} Read up on partial fraction expansion. 
+    {\noindent\bf\color{blue!50!black} Does this look unfamiliar?} Read up on partial fraction expansion. 
   }
 \end{frame}
 
@@ -895,7 +904,7 @@
         \begin{align}
           \frac{1}{T} = f_s \geq  2 f_{\textrm{max}} \nonumber
         \end{align}
-      \item<2-> {\color{blue}Question}: If I sampled a signal $x$ which is a cosine with $f = 34,723,487$Hz at a rate of $f_s = 1,234$Hz, where will it show up in the spectrum? Are we seeing folding?
+      \item<2-> {\color{blue}Question}: If I sampled a signal $x(t)$ which is a cosine with $f = 34,723,487$Hz at a rate of $f_s = 1,234$Hz, where will it show up in the spectrum after sampling? Are we seeing folding?
     \end{itemize}
   \end{block}
 \end{frame}

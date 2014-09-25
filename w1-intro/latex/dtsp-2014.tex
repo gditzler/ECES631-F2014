@@ -538,7 +538,7 @@
   \begin{exampleblock}{Eigenfunctions for LTI Systems}
     To demonstrate the eigenfunction property of LTI systems, let $x[n] = \e^{j\omega n}$, then 
     \begin{align}
-      y[n] = \sum_{k=-\infty}^{\infty}h[n-k] \e^{-j\omega(n-k)} = \e^{j\omega n} \left(\sum_{k=-\infty}^{\infty}h[n-k] \e^{-j\omega k}\right) \nonumber
+      y[n] = \sum_{k=-\infty}^{\infty}h[n] \e^{-j\omega(n-k)} = \e^{j\omega n} \left(\sum_{k=-\infty}^{\infty}h[k] \e^{-j\omega k}\right) \nonumber
     \end{align}
     If $H(\e^{j\omega}) = \sum_{k=-\infty}^{\infty}{h[k]\e^{-j\omega k}}$, then 
     \begin{align}
@@ -593,6 +593,52 @@
   \end{center}
    
 \end{frame}
+
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Example}\small
+  \begin{block}{Frequency Response on the Ideal Delay}
+  Let us examine the simple system $y[n] = x[n-n_0]$ where $n_0$ is a fixed integer. If we consider $x[n] = \e^{j\omega n}$ as an input to the system, then: 
+  \begin{align}
+  y[n] = \e^{j\omega n} \left(\sum_{k=-\infty}^{\infty}h[k] \e^{-j\omega k}\right) = H(\e^{j\omega})\e^{j\omega n} = \e^{j\omega (n - n_0)} = \e^{j\omega n} \e^{-j\omega n_0}
+  \nonumber
+  \end{align}
+  Thus for any value of $\omega$, we obtain an output that is the input multiplied by a complex constant. The frequency response is given by: 
+  \begin{align}
+  H(\e^{j\omega}) = \e^{-j\omega n_0}
+  \nonumber
+  \end{align}
+  What is $|H(\e^{j\omega})|$ and $\angle H(\e^{j\omega})$?
+  \end{block}
+\end{frame}
+
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Example}\small
+  \begin{exampleblock}{Frequency Response on the Ideal Delay}
+  Let us examine the simple system $y[n] = x[n-n_0]$ where $n_0$ is a fixed integer. If we consider $x[n] = \e^{j\omega n}$ as an input to the system, then: 
+  \begin{align}
+    x[n] = A \cos(\omega_0 n + \phi) = \frac{A}{2}\e^{j\phi}\e^{j\omega_0 n} + \frac{A}{2}\e^{-j\phi}\e^{-j\omega_0 n} = x_1[n] + x_2[n]
+    \nonumber
+  \end{align}
+  If $y[n] = h[n]\star x[n]$, then 
+  \begin{align}
+    y[n] &= \frac{A}{2}\left( H(\e^{j\omega_0}) \e^{j\phi}\e^{j\omega_0 n} +H(\e^{-j\omega_0}) \e^{-j\phi}\e^{-j\omega_0 n} \right)
+    \nonumber \\
+    &= A |H(\e^{j\omega_0})| \cos(\omega_0 n + \phi + \angle H(\e^{j\omega_0}))
+    \nonumber
+  \end{align}
+  For the simple example of an ideal delay we have $\angle H(\e^{j\omega_0} = -\omega_0 n_0$, then 
+  \begin{align}
+    y[n] &= A  \cos(\omega_0 n + \phi + -\omega_0 n_0)= A  \cos(\omega_0 (n - n_0)+ \phi)
+    \nonumber
+  \end{align}
+  \end{exampleblock}
+\end{frame}
+
+
+
+
 
 %--------------------------------------------------------------------------------------------
 \begin{frame}\frametitle{Historical Note: The  1889 World's Fair in Paris, France}\small
@@ -730,6 +776,31 @@
   }
 \end{frame}
 
+
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Frequency Differentiation}\small
+  
+  \begin{exampleblock}{\small Derivation}
+  Lets us look at what happens when we take the derivative of the DTFT of a sequence $x[n]$. 
+  \begin{align}
+    \frac{\d X(\e^{j\omega})}{\d \omega} = \frac{\d}{\d\omega}\left\{\sum_{n=-\infty}^{\infty} x[n] \e^{-j\omega n}\right\} 
+    = \sum_{n=-\infty}^{\infty} x[n] \frac{\d}{\d\omega}\left\{\e^{-j\omega n}\right\}
+    = -j \sum_{n=-\infty}^{\infty} n x[n] \e^{-j\omega n} \nonumber
+  \end{align}
+  Therefore,
+  \begin{align}
+    n x[n] \leftrightarrow j \frac{\d X(\e^{j\omega})}{\d\omega}
+          \nonumber 
+  \end{align}
+  \end{exampleblock}
+  
+  \begin{block}{\small Example}
+    Find the DTFT of $n a^n u[n]$.
+  \end{block}
+\end{frame}
+
+
+
 %--------------------------------------------------------------------------------------------
 \begin{frame}\frametitle{Properties of the Discrete-Time Fourier Transform}\small
   \begin{block}{\small A Few other use properties ($x[n] \leftrightarrow X(\e^{j\omega})$)}
@@ -748,6 +819,14 @@
       \item {\color{blue!50!black}Frequency Shifting} 
         \begin{align}
           \e^{j\omega_0 n} x[n] \leftrightarrow  X\left(\e^{j(\omega - \omega_0)}\right)
+          \nonumber
+        \end{align}
+      \item {\color{blue!50!black}Convolutions} 
+        \begin{align}
+          x[n] \star y[n] \leftrightarrow  X(\e^{j\omega}) Y(\e^{j\omega})  \nonumber
+        \end{align}
+        \begin{align}
+          x[n] y[n] \leftrightarrow  \frac{1}{2\pi}\int\limits_{-\pi}^{\pi} X(\e^{j\theta}) Y(\e^{j(\omega - \theta)})\d\theta \nonumber
           \nonumber
         \end{align}
     \end{itemize}
@@ -777,7 +856,20 @@
   }
 \end{frame}
 
-
+%--------------------------------------------------------------------------------------------
+\begin{frame}\frametitle{Example}\small
+  \begin{exampleblock}{Determining the Impulse Response}
+  Given that $y[n] = h[n]\star x[n]$, find $h[n]$ when 
+  \begin{align}
+    y[n] - \frac{1}{2}y[n - 1] = x[n] - \frac{1}{4} x[n - 1] \nonumber 
+  \end{align}
+  \end{exampleblock}
+  \vspace{1em}
+  
+  \begin{center}
+    \uncover<2->{\includegraphics[height=.4\textheight]{hn_example.pdf}}
+  \end{center}
+\end{frame}
 
 
 %--------------------------------------------------------------------------------------------
@@ -867,213 +959,213 @@
 
 
 
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{Discrete Fourier Transform}\small
-  \begin{block}{What's this all about?}
-    \begin{itemize}
-      \item The Discrete Fourier Transform is a sampled version of the Discrete-Time Fourier Transform with the sampling happening in the frequency domain. We let $\hat{\omega}=\frac{2\pi k}{N}$ then the analysis equation becomes
-        \begin{align}
-          X[k] = \sum_{n=0}^{N-1} x[n] \e^{-j\frac{2\pi k n}{N}} = \sum_{n=0}^{N-1} x[n] W_N^{kn} \nonumber
-        \end{align}
-        and the synthesis equation is given by 
-        \begin{align}
-          x[k] = \sum_{k=0}^{N-1} X[n] \e^{j\frac{2\pi k n}{N}} = \sum_{k=0}^{N-1} X[n] W_N^{-kn} \nonumber
-        \end{align}
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{Clever Manipulations of the Discrete Fourier Transform}\small
-  Let us take a moment and begin by decomposing the Discrete Fourier Transform into the sum of the even and odd terms of $n \in [N-1]$.
-  \begin{align}
-    X[k] &= \sum_{n=0}^{N-1} x[n] \e^{-j\frac{2\pi k n}{N}} = \sum_{n=0}^{(N/2)-1} x[2n] \e^{-j\frac{2\pi k (2n)}{N}} + \sum_{n=0}^{(N/2)-1} x[2n+1] \e^{-j\frac{2\pi k (2n+1)}{N}} \nonumber \\
-    &= \sum_{n=0}^{(N/2)-1} x[2n] \e^{-j\frac{2\pi k (2n)}{N}} + \e^{-j\frac{2\pi k}{N}} \sum_{n=0}^{(N/2)-1} x[2n+1] \e^{-j\frac{2\pi k (2n)}{N}}  \nonumber \\
-    &= \sum_{n=0}^{(N/2)-1} x[2n] W_N^{2kn} + W_N^{k} \sum_{n=0}^{(N/2)-1} x[2n+1] W_N^{2kn} \nonumber \\
-    &= \sum_{n=0}^{(N/2)-1} x[2n] W_{N/2}^{kn} + W_N^{k} \sum_{n=0}^{(N/2)-1} x[2n+1] W_{N/2}^{kn} \nonumber 
-  \end{align}
-  Let us take a moment to examine the 2nd half of the transform, that is, $\hat{k} = k +N/2$.
-\end{frame}
-
-
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{Clever Manipulations of the Discrete Fourier Transform (cont.)}\small
-  Continuing along, 
-  \begin{align}
-    X[k+N/2] &= \sum_{n=0}^{(N/2)-1} x[2n] W_{N/2}^{(k+N/2)n} + W_N^{k+N/2} \sum_{n=0}^{(N/2)-1} x[2n+1] W_{N/2}^{(k+N/2)n} \nonumber 
-  \end{align}
-  After some examination, we see that $W_{N/2}^{(k+N/2)n} = W_{N/2}^{kn} W_{N/2}^{nN/2} = W_{N/2}^{kn} \e^{-j2\pi n 2N/(2N)} = W_{N/2}^{kn}$. Also, $W_N^{k+N/2} =  -W_N^{k}$. Then 
-  \begin{align}
-    X[k+N/2] &= \sum_{n=0}^{(N/2)-1} x[2n] W_{N/2}^{kn} -W_N^{k} \sum_{n=0}^{(N/2)-1} x[2n+1] W_{N/2}^{kn}\nonumber 
-  \end{align}
-  and recall that 
-  \begin{align}
-    X[k] &= \sum_{n=0}^{(N/2)-1} x[2n] W_{N/2}^{kn} + W_N^{k} \sum_{n=0}^{(N/2)-1} x[2n+1] W_{N/2}^{kn} \nonumber 
-  \end{align}
-  Okay\ldots What did we just show? 
-\end{frame}
-
-
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{Ladies \& Gentlemen: I give you the Fast Fourier Transform}\small
-  \begin{block}{Decimation-in-Time FFT}
-    \begin{itemize}
-      \item We derived the basis for a radix-2 decimation in time FFT algorithm. The terms $W_N^{k}$ are called ``twiddle'' factors. 
-      \item Most implementations of the sequence that we are taking the FFT has a length that is of length $2^K$. Why the power of 2 length assumption?
-        \begin{itemize}
-          \item What if the sequence is not of length $2^K$? Zero padding?
-          \item Does zero padding give you more frequency resolution?
-        \end{itemize}
-    \end{itemize}
-  \end{block}
-  \begin{center}
-      \includegraphics[height=.4\textheight]{sampling_dtft.pdf}
-    \end{center}
-\end{frame}
-
-
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{FFT in one picture}\small
-  \begin{center}
-    \includegraphics[height=\textheight]{fft.pdf}
-  \end{center}
-\end{frame}
-
-
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{$Z$-transform}\small
-  \begin{block}{What is the $Z$-transform: In words}
-    \begin{itemize}
-      \item The $Z$-transform is a little more general than the discrete-time Fourier transform. In fact, the discrete-time Fourier transform is a special can case of the $Z$-transform. The DTFT is the $Z$-transform being evaluated on the unit circle. 
-      \item The $Z$-transform of a sequence $x[n]$ must have its region of convergence within the unit circle for the DTFT to exist. 
-      \item The $Z$-transform is the discrete cousin of the Laplace transform. 
-    \end{itemize}
-  \end{block}
-  
-  \begin{exampleblock}{What is the $Z$-transform: In equations}
-    \begin{itemize}
-      \item The $Z$-transform is defined by
-        \begin{align}
-          X(z) = \sum_{n=-\infty}^{\infty} x[n] z^{-n} 
-          \nonumber
-        \end{align}
-        where $z \in \mathbb{C}$.
-      \item The set of values for $z$ where the Laurent series converges is called the {\em\color{green!50!black}region of convergence}. 
-        \begin{align}
-          \sum_{n=-\infty}^{\infty} |x[n]| |z|^{-n} \leq \infty
-          \nonumber
-        \end{align}
-    \end{itemize}
-  \end{exampleblock}
-\end{frame}
-
-
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{$Z$-transform}\small
-  \begin{block}{$Z$-transform}
-    \begin{itemize}
-      \item The $Z$-transform can {\em\color{blue!50!black}generally} be written as a ratio of polynomials of $z$.
-        \begin{align}
-          H(z) =\frac{P(z)}{Q(z)} = \frac{\sum_{k=0}^{N-1} b_k z^{-k}}{\sum_{j=0}^{M-1}a_j z^{-j}} = \frac{\prod_{k=0}^{N-1}(1 - \beta_k z^{-1})}{\prod_{j=0}^{M-1}(1 - \alpha_j z^{-1})}
-          \nonumber
-        \end{align} 
-        The roots of $P(z)$ and $Q(z)$ are called the {\em\color{blue!50!black}zeros} and {\em\color{blue!50!black}poles}, respectively. 
-      \item Poles could occur at $z=0$ or $|z|=\infty$. The locations of the poles are very important for determining the region of convergence. 
-      \item If the ROC does not include the unit circle then the DTFT does not exist
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{$Z$-transform (Example)}\small
-  Consider the signal $x[n] = a^n u[n]$. Because it is non-zero for only $n \geq 0$, this is an example of a right-sided sequence. By definition, 
-  \begin{align}
-    X(z) = \sum_{n=-\infty}^{\infty} a^n u[n] z^{-n} = \sum_{n=0}^{\infty} (az^{-1})^n \nonumber
-  \end{align}
-  For convergence of $X(z)$, we need
-  \begin{align}
-     \sum_{n=0}^{\infty} |az^{-1}|^n  \leq \infty\nonumber
-  \end{align}
-  Thus the ROC is all the values for $z$ where $|az^{-1}| < 1$ or $|a| < |z|$.  Then 
-  \begin{align}
-    X(z)  = \sum_{n=0}^{\infty} (az^{-1})^n  = \frac{1}{1 - az^{-1}} = \frac{z}{z-a} \nonumber
-  \end{align}
-  only if $|a| < |z|$.
-\end{frame}
-
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{$Z$-transform (Example)}\small
-  Consider the signal $x[n] = -a^n u[-n-1]$. Imagine looking at the previous signal in a mirror. Because it is non-zero for only $n \leq -1$, this is an example of a left-sided sequence. By definition, 
-  \begin{align}
-    X(z) = \sum_{n=-\infty}^{\infty} -a^n u[-n-1] z^{-n} = -\sum_{n=-\infty}^{-1} a^n z^{-n}=-\sum_{n=1}^{\infty} a^{-n} z^{n} = 1-\sum_{n=0}^{\infty} (a^{-1} z)^n \nonumber
-  \end{align}
-  \uncover<2->{If $a^{-1} z < 1$ or $|a| > |z|$.  Then 
-  \begin{align}
-    \alert<3->{X(z)}  = 1-\sum_{n=0}^{\infty} (a^{-1} z)^n = 1 - \frac{1}{1 - a^{-1}z} =  \frac{1}{1 - az^{-1}} = \alert<3->{\frac{z}{z-a}} \nonumber
-  \end{align}
-  only if \alert<3->{$|a| > |z|$}.}\\
-  \vspace{1em}
-  
-  \uncover<2->{Note that $|a| < 1$, the sequence $-a^n u[-n-1]$ grows exponentially as $n \rightarrow -\infty$, and thus, the DTFT does not exist. }
-\end{frame}
-
-
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{A Couple of Notes}\small
-  \begin{block}{More Observations About the $Z$-transform}
-    \begin{itemize}
-      \item If $x[n]$ has a $Z$-transform $X(z)$, and $x[n]$ is a sum of two terms. The ROC will be the intersection of the two individual ROCs. 
-      \item Obvious, I know, but the $Z$-transform is a linear operator. 
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{Poles and Zeros of a System}\small
-  \begin{center}
-    \includegraphics[height=.7\textheight]{notch_zp.pdf} \\
-    There are poles close to the zeros, which have a magnitude just a little bit smaller than 1. 
-  \end{center}
-\end{frame}
-
-
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{The Systems Frequency Response}\small
-  \begin{center}
-    \includegraphics[height=.7\textheight]{notch_freq.pdf} 
-  \end{center}
-\end{frame}
-
-
-%--------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{$Z$-transform (Example)}\small
-
-  \begin{columns}
-    \column{.5\textwidth}
-      \begin{block}{Question}
-      Given the system
-      \begin{align}
-        H(z) = \e^{z^{-1}} \nonumber
-      \end{align}
-      What is $h[n]$? What is the ROC? Is the system BIBO stable?
-      \end{block}
-    \column{.5\textwidth} \footnotesize
-      \uncover<2->{
-      {\bf\color{blue!50!black}Solution}\\
-      Directly apply the Lorentz series expansion to $H(z)$
-      \begin{align}
-        H(z) &= \e^{z^{-1}} = 1 + z^{-1} + \frac{1}{2!}z^{-2} +\cdots \nonumber \\
-        &= \sum_{n=0}^{\infty} h[n] u[n]\nonumber
-      \end{align}
-      Thus, $h[n] = \frac{1}{n!}u[n]$. Is the system BIBO stable?} \uncover<3->{Apply the ratio test to see if the series converges, diverges, or neither.
-      \begin{align}
-        \lim_{n\rightarrow\infty} \frac{h[n+1]}{h[n]} &= \lim_{n\rightarrow\infty} \frac{n!}{(n+1)!} = \lim_{n\rightarrow\infty} \frac{n!}{(n+1)n!}\nonumber \\
-        &= \lim_{n\rightarrow\infty} \frac{1}{n+1} = 0\nonumber
-      \end{align}
-      Therefore, $H(z)$ is BIBO stable. } \uncover<4->{Examining $H(z)$, we see there are no poles or zeros. Only an essential singularity. ROC is all $z$ except @ 0.}
-  \end{columns}
-\end{frame}
+%%--------------------------------------------------------------------------------------------
+%\begin{frame}\frametitle{Discrete Fourier Transform}\small
+%  \begin{block}{What's this all about?}
+%    \begin{itemize}
+%      \item The Discrete Fourier Transform is a sampled version of the Discrete-Time Fourier Transform with the sampling happening in the frequency domain. We let $\hat{\omega}=\frac{2\pi k}{N}$ then the analysis equation becomes
+%        \begin{align}
+%          X[k] = \sum_{n=0}^{N-1} x[n] \e^{-j\frac{2\pi k n}{N}} = \sum_{n=0}^{N-1} x[n] W_N^{kn} \nonumber
+%        \end{align}
+%        and the synthesis equation is given by 
+%        \begin{align}
+%          x[k] = \sum_{k=0}^{N-1} X[n] \e^{j\frac{2\pi k n}{N}} = \sum_{k=0}^{N-1} X[n] W_N^{-kn} \nonumber
+%        \end{align}
+%    \end{itemize}
+%  \end{block}
+%\end{frame}
+%
+%
+%%--------------------------------------------------------------------------------------------
+%\begin{frame}\frametitle{Clever Manipulations of the Discrete Fourier Transform}\small
+%  Let us take a moment and begin by decomposing the Discrete Fourier Transform into the sum of the even and odd terms of $n \in [N-1]$.
+%  \begin{align}
+%    X[k] &= \sum_{n=0}^{N-1} x[n] \e^{-j\frac{2\pi k n}{N}} = \sum_{n=0}^{(N/2)-1} x[2n] \e^{-j\frac{2\pi k (2n)}{N}} + \sum_{n=0}^{(N/2)-1} x[2n+1] \e^{-j\frac{2\pi k (2n+1)}{N}} \nonumber \\
+%    &= \sum_{n=0}^{(N/2)-1} x[2n] \e^{-j\frac{2\pi k (2n)}{N}} + \e^{-j\frac{2\pi k}{N}} \sum_{n=0}^{(N/2)-1} x[2n+1] \e^{-j\frac{2\pi k (2n)}{N}}  \nonumber \\
+%    &= \sum_{n=0}^{(N/2)-1} x[2n] W_N^{2kn} + W_N^{k} \sum_{n=0}^{(N/2)-1} x[2n+1] W_N^{2kn} \nonumber \\
+%    &= \sum_{n=0}^{(N/2)-1} x[2n] W_{N/2}^{kn} + W_N^{k} \sum_{n=0}^{(N/2)-1} x[2n+1] W_{N/2}^{kn} \nonumber 
+%  \end{align}
+%  Let us take a moment to examine the 2nd half of the transform, that is, $\hat{k} = k +N/2$.
+%\end{frame}
+%
+%
+%%--------------------------------------------------------------------------------------------
+%\begin{frame}\frametitle{Clever Manipulations of the Discrete Fourier Transform (cont.)}\small
+%  Continuing along, 
+%  \begin{align}
+%    X[k+N/2] &= \sum_{n=0}^{(N/2)-1} x[2n] W_{N/2}^{(k+N/2)n} + W_N^{k+N/2} \sum_{n=0}^{(N/2)-1} x[2n+1] W_{N/2}^{(k+N/2)n} \nonumber 
+%  \end{align}
+%  After some examination, we see that $W_{N/2}^{(k+N/2)n} = W_{N/2}^{kn} W_{N/2}^{nN/2} = W_{N/2}^{kn} \e^{-j2\pi n 2N/(2N)} = W_{N/2}^{kn}$. Also, $W_N^{k+N/2} =  -W_N^{k}$. Then 
+%  \begin{align}
+%    X[k+N/2] &= \sum_{n=0}^{(N/2)-1} x[2n] W_{N/2}^{kn} -W_N^{k} \sum_{n=0}^{(N/2)-1} x[2n+1] W_{N/2}^{kn}\nonumber 
+%  \end{align}
+%  and recall that 
+%  \begin{align}
+%    X[k] &= \sum_{n=0}^{(N/2)-1} x[2n] W_{N/2}^{kn} + W_N^{k} \sum_{n=0}^{(N/2)-1} x[2n+1] W_{N/2}^{kn} \nonumber 
+%  \end{align}
+%  Okay\ldots What did we just show? 
+%\end{frame}
+%
+%
+%%--------------------------------------------------------------------------------------------
+%\begin{frame}\frametitle{Ladies \& Gentlemen: I give you the Fast Fourier Transform}\small
+%  \begin{block}{Decimation-in-Time FFT}
+%    \begin{itemize}
+%      \item We derived the basis for a radix-2 decimation in time FFT algorithm. The terms $W_N^{k}$ are called ``twiddle'' factors. 
+%      \item Most implementations of the sequence that we are taking the FFT has a length that is of length $2^K$. Why the power of 2 length assumption?
+%        \begin{itemize}
+%          \item What if the sequence is not of length $2^K$? Zero padding?
+%          \item Does zero padding give you more frequency resolution?
+%        \end{itemize}
+%    \end{itemize}
+%  \end{block}
+%  \begin{center}
+%      \includegraphics[height=.4\textheight]{sampling_dtft.pdf}
+%    \end{center}
+%\end{frame}
+%
+%
+%%--------------------------------------------------------------------------------------------
+%\begin{frame}\frametitle{FFT in one picture}\small
+%  \begin{center}
+%    \includegraphics[height=\textheight]{fft.pdf}
+%  \end{center}
+%\end{frame}
+%
+%
+%%--------------------------------------------------------------------------------------------
+%\begin{frame}\frametitle{$Z$-transform}\small
+%  \begin{block}{What is the $Z$-transform: In words}
+%    \begin{itemize}
+%      \item The $Z$-transform is a little more general than the discrete-time Fourier transform. In fact, the discrete-time Fourier transform is a special can case of the $Z$-transform. The DTFT is the $Z$-transform being evaluated on the unit circle. 
+%      \item The $Z$-transform of a sequence $x[n]$ must have its region of convergence within the unit circle for the DTFT to exist. 
+%      \item The $Z$-transform is the discrete cousin of the Laplace transform. 
+%    \end{itemize}
+%  \end{block}
+%  
+%  \begin{exampleblock}{What is the $Z$-transform: In equations}
+%    \begin{itemize}
+%      \item The $Z$-transform is defined by
+%        \begin{align}
+%          X(z) = \sum_{n=-\infty}^{\infty} x[n] z^{-n} 
+%          \nonumber
+%        \end{align}
+%        where $z \in \mathbb{C}$.
+%      \item The set of values for $z$ where the Laurent series converges is called the {\em\color{green!50!black}region of convergence}. 
+%        \begin{align}
+%          \sum_{n=-\infty}^{\infty} |x[n]| |z|^{-n} \leq \infty
+%          \nonumber
+%        \end{align}
+%    \end{itemize}
+%  \end{exampleblock}
+%\end{frame}
+%
+%
+%%--------------------------------------------------------------------------------------------
+%\begin{frame}\frametitle{$Z$-transform}\small
+%  \begin{block}{$Z$-transform}
+%    \begin{itemize}
+%      \item The $Z$-transform can {\em\color{blue!50!black}generally} be written as a ratio of polynomials of $z$.
+%        \begin{align}
+%          H(z) =\frac{P(z)}{Q(z)} = \frac{\sum_{k=0}^{N-1} b_k z^{-k}}{\sum_{j=0}^{M-1}a_j z^{-j}} = \frac{\prod_{k=0}^{N-1}(1 - \beta_k z^{-1})}{\prod_{j=0}^{M-1}(1 - \alpha_j z^{-1})}
+%          \nonumber
+%        \end{align} 
+%        The roots of $P(z)$ and $Q(z)$ are called the {\em\color{blue!50!black}zeros} and {\em\color{blue!50!black}poles}, respectively. 
+%      \item Poles could occur at $z=0$ or $|z|=\infty$. The locations of the poles are very important for determining the region of convergence. 
+%      \item If the ROC does not include the unit circle then the DTFT does not exist
+%    \end{itemize}
+%  \end{block}
+%\end{frame}
+%
+%%--------------------------------------------------------------------------------------------
+%\begin{frame}\frametitle{$Z$-transform (Example)}\small
+%  Consider the signal $x[n] = a^n u[n]$. Because it is non-zero for only $n \geq 0$, this is an example of a right-sided sequence. By definition, 
+%  \begin{align}
+%    X(z) = \sum_{n=-\infty}^{\infty} a^n u[n] z^{-n} = \sum_{n=0}^{\infty} (az^{-1})^n \nonumber
+%  \end{align}
+%  For convergence of $X(z)$, we need
+%  \begin{align}
+%     \sum_{n=0}^{\infty} |az^{-1}|^n  \leq \infty\nonumber
+%  \end{align}
+%  Thus the ROC is all the values for $z$ where $|az^{-1}| < 1$ or $|a| < |z|$.  Then 
+%  \begin{align}
+%    X(z)  = \sum_{n=0}^{\infty} (az^{-1})^n  = \frac{1}{1 - az^{-1}} = \frac{z}{z-a} \nonumber
+%  \end{align}
+%  only if $|a| < |z|$.
+%\end{frame}
+%
+%%--------------------------------------------------------------------------------------------
+%\begin{frame}\frametitle{$Z$-transform (Example)}\small
+%  Consider the signal $x[n] = -a^n u[-n-1]$. Imagine looking at the previous signal in a mirror. Because it is non-zero for only $n \leq -1$, this is an example of a left-sided sequence. By definition, 
+%  \begin{align}
+%    X(z) = \sum_{n=-\infty}^{\infty} -a^n u[-n-1] z^{-n} = -\sum_{n=-\infty}^{-1} a^n z^{-n}=-\sum_{n=1}^{\infty} a^{-n} z^{n} = 1-\sum_{n=0}^{\infty} (a^{-1} z)^n \nonumber
+%  \end{align}
+%  \uncover<2->{If $a^{-1} z < 1$ or $|a| > |z|$.  Then 
+%  \begin{align}
+%    \alert<3->{X(z)}  = 1-\sum_{n=0}^{\infty} (a^{-1} z)^n = 1 - \frac{1}{1 - a^{-1}z} =  \frac{1}{1 - az^{-1}} = \alert<3->{\frac{z}{z-a}} \nonumber
+%  \end{align}
+%  only if \alert<3->{$|a| > |z|$}.}\\
+%  \vspace{1em}
+%  
+%  \uncover<2->{Note that $|a| < 1$, the sequence $-a^n u[-n-1]$ grows exponentially as $n \rightarrow -\infty$, and thus, the DTFT does not exist. }
+%\end{frame}
+%
+%
+%%--------------------------------------------------------------------------------------------
+%\begin{frame}\frametitle{A Couple of Notes}\small
+%  \begin{block}{More Observations About the $Z$-transform}
+%    \begin{itemize}
+%      \item If $x[n]$ has a $Z$-transform $X(z)$, and $x[n]$ is a sum of two terms. The ROC will be the intersection of the two individual ROCs. 
+%      \item Obvious, I know, but the $Z$-transform is a linear operator. 
+%    \end{itemize}
+%  \end{block}
+%\end{frame}
+%
+%%--------------------------------------------------------------------------------------------
+%\begin{frame}\frametitle{Poles and Zeros of a System}\small
+%  \begin{center}
+%    \includegraphics[height=.7\textheight]{notch_zp.pdf} \\
+%    There are poles close to the zeros, which have a magnitude just a little bit smaller than 1. 
+%  \end{center}
+%\end{frame}
+%
+%
+%%--------------------------------------------------------------------------------------------
+%\begin{frame}\frametitle{The Systems Frequency Response}\small
+%  \begin{center}
+%    \includegraphics[height=.7\textheight]{notch_freq.pdf} 
+%  \end{center}
+%\end{frame}
+%
+%
+%%--------------------------------------------------------------------------------------------
+%\begin{frame}\frametitle{$Z$-transform (Example)}\small
+%
+%  \begin{columns}
+%    \column{.5\textwidth}
+%      \begin{block}{Question}
+%      Given the system
+%      \begin{align}
+%        H(z) = \e^{z^{-1}} \nonumber
+%      \end{align}
+%      What is $h[n]$? What is the ROC? Is the system BIBO stable?
+%      \end{block}
+%    \column{.5\textwidth} \footnotesize
+%      \uncover<2->{
+%      {\bf\color{blue!50!black}Solution}\\
+%      Directly apply the Lorentz series expansion to $H(z)$
+%      \begin{align}
+%        H(z) &= \e^{z^{-1}} = 1 + z^{-1} + \frac{1}{2!}z^{-2} +\cdots \nonumber \\
+%        &= \sum_{n=0}^{\infty} h[n] u[n]\nonumber
+%      \end{align}
+%      Thus, $h[n] = \frac{1}{n!}u[n]$. Is the system BIBO stable?} \uncover<3->{Apply the ratio test to see if the series converges, diverges, or neither.
+%      \begin{align}
+%        \lim_{n\rightarrow\infty} \frac{h[n+1]}{h[n]} &= \lim_{n\rightarrow\infty} \frac{n!}{(n+1)!} = \lim_{n\rightarrow\infty} \frac{n!}{(n+1)n!}\nonumber \\
+%        &= \lim_{n\rightarrow\infty} \frac{1}{n+1} = 0\nonumber
+%      \end{align}
+%      Therefore, $H(z)$ is BIBO stable. } \uncover<4->{Examining $H(z)$, we see there are no poles or zeros. Only an essential singularity. ROC is all $z$ except @ 0.}
+%  \end{columns}
+%\end{frame}
 
 
 

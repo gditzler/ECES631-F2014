@@ -49,7 +49,7 @@ box on;
 plot(n, u(n-d), 'bo', 'LineWidth', 2)
 plot(n, u(-n), 'go', 'LineWidth', 2)
 plot(m, h/12, 'r*', 'LineWidth', 2)
-legend({'u[n]', 'u[n-3] flipped','conv(x,f)/12'},'Location','best')
+legend({'u[n-3]', 'u[n] flipped','conv(x,f)/12'},'Location','best')
 set(gca, 'fontsize', 24)
 
 saveas(h3,'eps/conv_02.eps','eps2c')

@@ -1,7 +1,7 @@
 
 
-\documentclass[mathserif,9pt]{beamer}
-%\documentclass[mathserif,9pt,handout]{beamer}
+%\documentclass[mathserif,9pt]{beamer}
+\documentclass[mathserif,9pt,handout]{beamer}
 
 
 \usepackage{amsmath}
@@ -74,17 +74,17 @@
   \begin{itemize}
     \item {\em Clerical work before we get started}
     \item {\em Signals \& Systems}: LTI, sampling, discrete signals, quantization
-    \item {\em Transforms}: $Z$-transform, discrete-time Fourier transform, fast Fourier transform 
-    \item {\em Frequency Response \& Filters}: transfer functions, FIR, IIR, filter design 
+    \item {\em Transforms}:  discrete-time Fourier transform 
+    \item {\em Frequency Response \& Filters}: transfer functions 
   \end{itemize}
   \end{block}
   
-  \begin{exampleblock}{Random Signals}
-  \begin{itemize}
-    \item {\em Probability \& Statistics Review}: random variables, mean, expectations, variance 
-    \item {\em Random Processes}: Bernoulli
-  \end{itemize}
-  \end{exampleblock}
+%  \begin{exampleblock}{Random Signals}
+%  \begin{itemize}
+%    \item {\em Probability \& Statistics Review}: random variables, mean, expectations, variance 
+%    \item {\em Random Processes}: Bernoulli
+%  \end{itemize}
+%  \end{exampleblock}
   
   \begin{alertblock}{Examples \& Homework}
   \begin{itemize}
@@ -538,7 +538,7 @@
   \begin{exampleblock}{Eigenfunctions for LTI Systems}
     To demonstrate the eigenfunction property of LTI systems, let $x[n] = \e^{j\omega n}$, then 
     \begin{align}
-      y[n] = \sum_{k=-\infty}^{\infty}h[n] \e^{-j\omega(n-k)} = \e^{j\omega n} \left(\sum_{k=-\infty}^{\infty}h[k] \e^{-j\omega k}\right) \nonumber
+      y[n] = \sum_{k=-\infty}^{\infty}h[k] \e^{j\omega(n-k)} = \e^{j\omega n} \left(\sum_{k=-\infty}^{\infty}h[k] \e^{-j\omega k}\right) \nonumber
     \end{align}
     If $H(\e^{j\omega}) = \sum_{k=-\infty}^{\infty}{h[k]\e^{-j\omega k}}$, then 
     \begin{align}
@@ -714,7 +714,7 @@
 \begin{frame}\frametitle{Example}\small
    
    \begin{exampleblock}{Low Pass Filter}
-   Let us deterring the impulse response of an {\em ideal} low-pass filter. The frequency response is given by: 
+   Let us determine the impulse response of an {\em ideal} low-pass filter. The frequency response is given by: 
    \begin{align}
      H_{\textrm{lp}}(\e^{j\omega}) = \left\{
        \begin{array}{l l}
